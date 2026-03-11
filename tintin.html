@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tintin ❤️ My Forever</title>
+
+<style>
+
+body{
+margin:0;
+padding:0;
+background:linear-gradient(135deg,#ff758c,#ff7eb3,#fad0c4);
+font-family:'Segoe UI',sans-serif;
+text-align:center;
+overflow:hidden;
+}
+
+/* PHOTO FRAME */
+
+.frame{
+margin-top:40px;
+width:260px;
+height:260px;
+margin-left:auto;
+margin-right:auto;
+border-radius:50%;
+padding:8px;
+background:conic-gradient(red,pink,white,red);
+animation:rotate 6s linear infinite;
+}
+
+.frame img{
+width:100%;
+height:100%;
+border-radius:50%;
+object-fit:cover;
+border:5px solid white;
+animation:heartbeat 1.5s infinite;
+}
+
+@keyframes rotate{
+100%{transform:rotate(360deg);}
+}
+
+@keyframes heartbeat{
+0%{transform:scale(1);}
+25%{transform:scale(1.05);}
+50%{transform:scale(1);}
+75%{transform:scale(1.05);}
+100%{transform:scale(1);}
+}
+
+/* TEXT */
+
+h1{
+color:white;
+margin-top:20px;
+text-shadow:0 0 20px red;
+}
+
+#missMsg{
+color:white;
+font-size:18px;
+}
+
+#timer{
+color:white;
+font-size:16px;
+margin-top:10px;
+}
+
+/* BUTTON */
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+font-size:18px;
+cursor:pointer;
+margin-top:20px;
+background:white;
+color:red;
+transition:0.3s;
+}
+
+button:hover{
+background:red;
+color:white;
+transform:scale(1.1);
+}
+
+/* POPUP LETTER */
+
+.popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 0 25px rgba(0,0,0,0.3);
+width:300px;
+}
+
+.popup h2{
+color:red;
+}
+
+.close{
+margin-top:10px;
+cursor:pointer;
+color:red;
+}
+
+/* FLOATING HEART */
+
+.heart{
+position:absolute;
+font-size:30px;
+animation:float 4s ease-in-out infinite;
+pointer-events:none;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);opacity:1;}
+50%{transform:translateY(-50vh);opacity:0.7;}
+}
+
+/* ROSE PETALS */
+
+.petal{
+position:absolute;
+top:-10px;
+font-size:20px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh) rotate(0deg);}
+100%{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* STARS */
+
+.star{
+position:absolute;
+font-size:12px;
+color:white;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+0%,100%{opacity:0;}
+50%{opacity:1;}
+}
+
+/* SLIDESHOW */
+
+.slideshow{
+margin-top:20px;
+}
+
+.slideshow img{
+width:180px;
+border-radius:15px;
+box-shadow:0 0 20px pink;
+}
+
+/* CONFETTI */
+
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+animation:confetti-fall 3s linear forwards;
+}
+
+@keyframes confetti-fall{
+to{
+opacity:0;
+transform:translateY(300px);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="frame">
+<img src="tintin.jpeg" alt="Photo of Tintin">
+</div>
+
+<h1>💖 Tintin & Me 💖</h1>
+
+<p id="missMsg">
+Every moment without you feels incomplete... I miss you ❤️
+</p>
+
+<div id="timer"></div>
+
+<div class="slideshow">
+<img id="memory" src="tintin.jpeg" alt="Memory photo">
+</div>
+
+<button onclick="openLetter()">Open Secret Letter 💌</button>
+
+<div class="popup" id="letter">
+<h2>For My Tintin ❤️</h2>
+<p id="typeText"></p>
+<div class="close" onclick="closeLetter()">Close 💕</div>
+</div>
+
+<audio id="bgMusic" src="Anjan_Dutt_-_Calcium_(mp3.pm).mp3"></audio>
+
+<script>
+
+/* TYPEWRITER MESSAGE */
+
+const message =
+"Tintin... Every song reminds me of you. Every quiet night makes me miss you more. I wish you were here beside me right now. ❤️";
+
+let i=0;
+
+function typeWriter(){
+if(i < message.length){
+document.getElementById("typeText").innerHTML += message.charAt(i);
+i++;
+setTimeout(typeWriter,50);
+}
+}
+
+/* OPEN LETTER */
+
+function openLetter(){
+
+document.getElementById("letter").style.display="block";
+
+const music=document.getElementById("bgMusic");
+music.volume=0;
+music.play();
+
+let fade=setInterval(()=>{
+if(music.volume<1){
+music.volume+=0.05;
+}else{
+clearInterval(fade);
+}
+},200);
+
+typeWriter();
+burstConfetti();
+}
+
+/* CLOSE LETTER */
+
+function closeLetter(){
+document.getElementById("letter").style.display="none";
+const music=document.getElementById("bgMusic");
+music.pause();
+}
+
+/* FLOATING HEARTS */
+
+function createHeart(){
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),4000);
+}
+
+setInterval(createHeart,500);
+
+/* ROSE PETALS */
+
+function createPetal(){
+const petal=document.createElement("div");
+petal.classList.add("petal");
+petal.innerHTML="🌹";
+petal.style.left=Math.random()*100+"vw";
+petal.style.animationDuration=(Math.random()*3+3)+"s";
+document.body.appendChild(petal);
+setTimeout(()=>petal.remove(),6000);
+}
+
+setInterval(createPetal,300);
+
+/* STARS */
+
+function createStar(){
+const star=document.createElement("div");
+star.classList.add("star");
+star.innerHTML="⭐";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+document.body.appendChild(star);
+setTimeout(()=>star.remove(),3000);
+}
+
+setInterval(createStar,400);
+
+/* CONFETTI */
+
+function burstConfetti(){
+for(let i=0;i<30;i++){
+const conf=document.createElement("div");
+conf.classList.add("confetti");
+conf.style.left=Math.random()*100+"vw";
+conf.style.bottom="0";
+conf.style.background=["red","pink","white","#ff758c"][Math.floor(Math.random()*4)];
+document.body.appendChild(conf);
+setTimeout(()=>conf.remove(),3000);
+}
+}
+
+/* SLIDESHOW */
+
+const photos=[
+"tintin2.jpeg",
+"tintin3.jpg",
+"tintin4.jpg"
+];
+
+let p=0;
+
+setInterval(()=>{
+p++;
+if(p>=photos.length){p=0;}
+document.getElementById("memory").src=photos[p];
+},4000);
+
+/* MISS TIMER */
+
+const meetDate=new Date("2026-02-10");
+
+setInterval(()=>{
+
+const now=new Date();
+const diff=now-meetDate;
+
+const days=Math.floor(diff/(1000*60*60*24));
+const hours=Math.floor((diff/(1000*60*60))%24);
+
+document.getElementById("timer").innerHTML =
+"⏳ I have been missing you for "+days+" days and "+hours+" hours ❤️";
+
+},1000);
+
+</script>
+
+</body>
+</html>
