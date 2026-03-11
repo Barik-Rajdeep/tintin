@@ -37,6 +37,7 @@ border-radius:50%;
 object-fit:cover;
 border:5px solid white;
 animation:heartbeat 1.5s infinite;
+will-change:transform;
 }
 
 @keyframes rotate{
@@ -122,6 +123,7 @@ position:absolute;
 font-size:30px;
 animation:float 4s ease-in-out infinite;
 pointer-events:none;
+will-change:transform,opacity;
 }
 
 @keyframes float{
@@ -136,6 +138,7 @@ position:absolute;
 top:-10px;
 font-size:20px;
 animation:fall linear infinite;
+will-change:transform;
 }
 
 @keyframes fall{
@@ -150,6 +153,7 @@ position:absolute;
 font-size:12px;
 color:white;
 animation:twinkle 3s infinite;
+will-change:opacity;
 }
 
 @keyframes twinkle{
@@ -176,6 +180,7 @@ position:absolute;
 width:10px;
 height:10px;
 animation:confetti-fall 3s linear forwards;
+will-change:transform,opacity;
 }
 
 @keyframes confetti-fall{
@@ -206,7 +211,7 @@ Every moment without you feels incomplete... I miss you ❤️
 <img id="memory" src="tintin.jpeg" alt="Memory photo">
 </div>
 
-<button onclick="openLetter()">Open Secret Letter 💌</button>
+<button type="button" onclick="openLetter()">Open Secret Letter 💌</button>
 
 <div class="popup" id="letter">
 <h2>For My Tintin ❤️</h2>
